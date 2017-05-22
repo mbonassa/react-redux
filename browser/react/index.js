@@ -70,7 +70,7 @@ ReactDOM.render(
         <Route path="/playlists/:playlistId" component={PlaylistContainer} onEnter={onPlaylistEnter}/>
         <Route path="/lyrics" component={LyricsContainer} />
         <Route path="/stations" component={StationsContainer} onEnter={onStationsEnter} />
-        <Route path="/stations/:genre" component={SingleStationContainer} />
+        <Route path="/stations/:genre" onEnter={onStationsEnter} component={SingleStationContainer} />
         <IndexRedirect to="/albums"/>
       </Route>
     </Router>
