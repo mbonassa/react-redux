@@ -1,7 +1,17 @@
-import React from 'react';
+import {connect} from 'react-redux';
 import NewPlaylist from '../components/NewPlaylist';
-import store from '../store';
 import {addNewPlaylist} from '../action-creators/playlists';
+
+const mapStateToProps = (state, ownProps) => ({
+    inputValue: state.inputValue,
+    dirty: 
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    handleChange
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPlaylist);
 
 class NewPlaylistContainer extends React.Component {
 
