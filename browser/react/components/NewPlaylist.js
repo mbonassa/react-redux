@@ -1,12 +1,11 @@
 import React from 'react';
 
 export default function NewPlaylist (props) {
-
   const handleChange = props.handleChange;
   const handleSubmit = props.handleSubmit;
   const warning = props.warning;
   const inputValue = props.inputValue;
-
+  
   return (
     <div className="well" style={{marginTop: '20px'}}>
       <form className="form-horizontal" onSubmit={handleSubmit}>

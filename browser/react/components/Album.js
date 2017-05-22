@@ -2,7 +2,7 @@ import React from 'react';
 import Songs from '../components/Songs';
 
 export default function Album (props) {
-
+console.log(props);
   const album = props.selectedAlbum;
   const currentSong = props.currentSong;
   const isPlaying = props.isPlaying;
