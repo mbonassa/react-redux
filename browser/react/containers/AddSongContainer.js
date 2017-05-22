@@ -1,7 +1,18 @@
-import React from 'react';
+import {connect} from 'react-redux';
 import AddSong from '../components/AddSong';
-import store from '../store';
 import {loadAllSongs, addSongToPlaylist} from '../action-creators/playlists';
+import React from 'react';
+
+const mapStateToProps = (state, ownProps) => {
+  return Object.assign({}, ownProps, {songs: state.songs, playlists: state.playlists})
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  submitDispatch: (playlistId, songId) => {
+    dispatch(addSongToPlaylist(playlistId, songId))
+  },
+  songLoader: () => dispatch(loadAllSongs())
+});
 
 class AddSongContainer extends React.Component {
 
@@ -10,23 +21,15 @@ class AddSongContainer extends React.Component {
     this.state = Object.assign({
       songId: 1,
       error: false
-    }, store.getState());
+    })
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
 
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState());
-    });
+    this.props.songLoader();
 
-    store.dispatch(loadAllSongs());
-
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   handleChange(evt) {
@@ -40,24 +43,21 @@ class AddSongContainer extends React.Component {
 
     evt.preventDefault();
 
-    const playlistId = this.state.playlists.selected.id;
+    const playlistId = this.props.playlists.selected.id;
     const songId = this.state.songId;
 
-    store.dispatch(addSongToPlaylist(playlistId, songId))
-      .catch(() => this.setState({ error: true }));
+    this.props.submitDispatch(playlistId, songId)
 
   }
 
   render() {
 
-    const songs = this.state.songs;
     const error = this.state.error;
     const songId = this.state.songId;
 
     return (
       <AddSong
         {...this.props}
-        songs={songs}
         error={error}
         songId={songId}
         handleChange={this.handleChange}
@@ -66,4 +66,5 @@ class AddSongContainer extends React.Component {
   }
 }
 
-export default AddSongContainer;
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddSongContainer);
