@@ -3,7 +3,7 @@ import {previous, next, setProgress, toggleSong} from '../action-creators/player
 import Player from '../components/Player';
 import {connect} from 'react-redux';
 
-const mapPropsToState = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return Object.assign({}, state.player)
 }
 
@@ -14,14 +14,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   prev: () => {
     dispatch(previous());
   },
-  toggle: () => {
+  toggle: (currentSong, currentList) => {
     dispatch(
-      toggleSong(ownProps.currentSong, ownProps.currentSongList)
+      toggleSong(currentSong, currentList)
     )
   } 
 })
 
-export default connect(mapPropsToState, mapDispatchToProps)(Player)
+export default connect(mapStateToProps, mapDispatchToProps)(Player)
 
 // class PlayerContainer extends Component {
 

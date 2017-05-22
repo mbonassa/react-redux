@@ -16,7 +16,7 @@ export default function Player (props) {
           <button className="btn btn-default" onClick={prev}>
             <span className="glyphicon glyphicon-step-backward"></span>
           </button>
-          <button className="btn btn-default" onClick={toggle}>
+          <button className="btn btn-default" onClick={() => toggle(currentSong, props.currentList)}>
             <span className={isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'}></span>
           </button>
           <button className="btn btn-default" onClick={next}>
